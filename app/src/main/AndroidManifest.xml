@@ -32,6 +32,8 @@
 
         <activity android:name=".lastdayinfo"
             android:label="lastdayinfo"/>
+        <activity android:name=".Predictions"
+            android:label="prediction"/>
     </application>
 
 </manifest>

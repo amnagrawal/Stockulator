@@ -8,6 +8,21 @@
     android:orientation="vertical"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="COMPANY NAME"
+        android:textStyle="bold"
+        android:id="@+id/textView"
+        android:singleLine="false"
+        android:layout_marginTop="10dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,19 +31,10 @@
         android:id="@+id/companyTextView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="10dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/companyTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false"
-        android:text="PREVIOUS DAY"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -39,12 +45,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="OPEN"
+        android:text="Opening Price"
+        android:textStyle="bold"
         android:id="@+id/textView3"
         android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp" />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,29 +58,33 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="500"
         android:id="@+id/openTextView"
-        android:layout_marginLeft="30dp"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_toEndOf="@+id/textView3" />
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="CLOSE"
-        android:id="@+id/closeTextView"
+        android:text="Closing Price"
+        android:textStyle="bold"
+        android:id="@+id/textview90"
         android:layout_alignTop="@+id/openTextView"
         android:layout_alignEnd="@+id/textView2"
-        android:layout_marginLeft="80dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="505"
-        android:id="@+id/textView6"
+        android:id="@+id/closeTextView"
         android:layout_alignTop="@+id/textView5"
         android:layout_toEndOf="@+id/textView2"
-        android:paddingLeft="30dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp" />
 
     </LinearLayout>
 
@@ -88,10 +98,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="HIGHEST"
+        android:textStyle="bold"
         android:id="@+id/textview23"
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,7 +112,7 @@
         android:id="@+id/highestTextView"
         android:layout_alignTop="@+id/textView7"
         android:layout_alignStart="@+id/openTextView"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp" />
 
     <TextView
@@ -109,11 +120,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="LOWEST"
+        android:textStyle="bold"
         android:id="@+id/textView9"
         android:layout_alignTop="@+id/highestTextView"
-        android:layout_toStartOf="@+id/textView6"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="80dp" />
+        android:layout_toStartOf="@+id/closeTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -124,7 +136,7 @@
         android:layout_alignTop="@+id/textView9"
         android:layout_toEndOf="@+id/companyTextView"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
@@ -138,10 +150,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="VOLUME TRADED"
+        android:textStyle="bold"
         android:id="@+id/textView11"
         android:layout_below="@+id/textView7"
         android:layout_toStartOf="@+id/companyTextView"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -153,17 +166,15 @@
         android:layout_toEndOf="@+id/textView11"
         android:layout_marginLeft="20dp"
         android:paddingLeft="30dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
     <com.androidplot.xy.XYPlot
         android:id="@+id/mySimpleXYPlot"
         android:layout_width="fill_parent"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         androidPlot.title="A Simple XYPlot Example"/>
 
 </LinearLayout>

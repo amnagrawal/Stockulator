@@ -5,16 +5,18 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    MaterialSearchView searchView;
     Toolbar toolbar;
 
     @Override
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        /*searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -51,26 +53,29 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.canShowOverflowMenu();
                 //Do some magic
             }
-        });
+        });*/
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Company.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
+        final RecyclerView recList = (RecyclerView) findViewById(R.id.listentries);
+        recList.setHasFixedSize(true);
 
+        LinearLayoutManager llm = new org.solovyev.android.views.llm.
+                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        recList.setLayoutManager(llm);
+
+        List<ListItemInfo> listItemInfos = new ArrayList<>();
+        listItemInfos.add(new ListItemInfo("wipro"));
+        listItemInfos.add(new ListItemInfo("aplab-bo"));
+        listItemInfos.add(new ListItemInfo("india-cements"));
+        listItemInfos.add(new ListItemInfo("andhra-bank"));
+
+        recList.setAdapter(new ListEntriesAdapter(listItemInfos));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
 
         return true;
     }
@@ -90,12 +95,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 }

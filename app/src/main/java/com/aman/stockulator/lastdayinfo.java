@@ -34,6 +34,20 @@ public class lastdayinfo extends AppCompatActivity {
 
         mySimpleXYPlot = (XYPlot) findViewById(R.id.mySimpleXYPlot);
 
+        int dataPoints[]=getIntent().getExtras().getIntArray("data_pts");
+        double high = getIntent().getExtras().getDouble("high");
+        double low = getIntent().getExtras().getDouble("low");
+        double open = getIntent().getExtras().getDouble("open");
+        double close = getIntent().getExtras().getDouble("close");
+        int volume = getIntent().getExtras().getInt("volume");
+
+        openTextView.setText(String.valueOf(open));
+        closeTextView.setText(String.valueOf(close));
+        highestTextView.setText(String.valueOf(high));
+        lowestTextView.setText(String.valueOf(low));
+        volumeTextView.setText(String.valueOf(volume));
+
+
         // Create a couple arrays of y-values to plot:
         Number[] series1Numbers = {1, 8, 5, 2, 7, 4};
         Number[] series2Numbers = {4, 6, 3, 8, 2, 10};

@@ -1,13 +1,18 @@
 package com.aman.stockulator;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -28,16 +33,36 @@ public class Company extends AppCompatActivity {
 
     //TextView date;
     DatePickerDialog datePickerDialog;
+    Button decidePredictionButton,detailsbutton;
+    TextView companyTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
+
+        companyTextView = (TextView)findViewById(R.id.companyTextView);
+        companyTextView.setText(getIntent().getStringExtra("Name"));
+
+        ///decide prediction Button
+        decidePredictionButton = (Button)findViewById(R.id.decidePredictionbutton);
+        decidePredictionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(Company.this, Predictions.class);
+                mIntent.putExtra("Name", companyTextView.getText());
+                startActivity(mIntent);
+            }
+        });
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        detailsbutton = (Button)findViewById(R.id.detailsbutton);
+        detailsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar newCalendar = Calendar.getInstance();
@@ -45,6 +70,7 @@ public class Company extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
+                        Calendar now = Calendar.getInstance();
                         Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
 
@@ -53,12 +79,17 @@ public class Company extends AppCompatActivity {
                         sendRequest(sdf.format(newDate.getTimeInMillis()));
 
 
-
                         //date.setText(sdf.format(newDate.getTimeInMillis()));
                     }
 
                     public void sendRequest(String date) {
-                        String url = "";
+
+                        final ProgressDialog dialog = new ProgressDialog(Company.this);
+                        dialog.setMessage("Please Wait...");
+                        dialog.show();
+
+                        String url = "http://10.60.48.37:5000/"+companyTextView.getText()+"/"+date;
+                        Log.i("url", url);
 
                         JsonObjectRequest jsonRequest = new JsonObjectRequest
                                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -77,7 +108,7 @@ public class Company extends AppCompatActivity {
 
                                             data_pts = new double[plot_details.length()];
 
-                                            for(int i=0; i<plot_details.length(); i++) {
+                                            for (int i = 0; i < plot_details.length(); i++) {
                                                 JSONObject jsonObject = plot_details.getJSONObject(i);
                                                 data_pts[i] = jsonObject.getDouble("open_price");
                                             }
@@ -99,6 +130,8 @@ public class Company extends AppCompatActivity {
 
                                             startActivity(intent);
 
+                                            dialog.dismiss();
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -119,6 +152,8 @@ public class Company extends AppCompatActivity {
 
                                         startActivity(intent);
 
+                                        dialog.dismiss();
+
                                         error.printStackTrace();
                                     }
                                 });
@@ -129,6 +164,7 @@ public class Company extends AppCompatActivity {
                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
                 datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+
                 datePickerDialog.show();
             }
         });
