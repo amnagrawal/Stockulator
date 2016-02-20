@@ -3,12 +3,9 @@ package com.aman.stockulator;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.androidplot.xy.LineAndPointFormatter;
-import com.androidplot.xy.PointLabelFormatter;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
@@ -34,7 +31,7 @@ public class lastdayinfo extends AppCompatActivity {
 
         mySimpleXYPlot = (XYPlot) findViewById(R.id.mySimpleXYPlot);
 
-        int dataPoints[]=getIntent().getExtras().getIntArray("data_pts");
+        int[] dps =getIntent().getExtras().getIntArray("data_pts");
         double high = getIntent().getExtras().getDouble("high");
         double low = getIntent().getExtras().getDouble("low");
         double open = getIntent().getExtras().getDouble("open");
@@ -46,10 +43,13 @@ public class lastdayinfo extends AppCompatActivity {
         highestTextView.setText(String.valueOf(high));
         lowestTextView.setText(String.valueOf(low));
         volumeTextView.setText(String.valueOf(volume));
+        companyTextView.setText(getIntent().getStringExtra("Name"));
 
 
         // Create a couple arrays of y-values to plot:
-        Number[] series1Numbers = {1, 8, 5, 2, 7, 4};
+        Number[] series1Numbers = new Number[dps.length];
+        for(int i=0; i<dps.length; i++)
+            series1Numbers[i] = dps[i];
         Number[] series2Numbers = {4, 6, 3, 8, 2, 10};
 
         // Turn the above arrays into XYSeries':

@@ -98,7 +98,7 @@ public class Company extends AppCompatActivity {
                                         // the response is already constructed as a JSONObject!
                                         JSONArray plot_details;
                                         JSONObject stock_details;
-                                        double[] data_pts;
+                                        int[] data_pts;
                                         double high, low, open, close;
                                         int volume;
 
@@ -106,11 +106,11 @@ public class Company extends AppCompatActivity {
                                             plot_details = response.getJSONArray("graph_plot");
                                             stock_details = response.getJSONObject("stock_details");
 
-                                            data_pts = new double[plot_details.length()];
+                                            data_pts = new int[plot_details.length()];
 
                                             for (int i = 0; i < plot_details.length(); i++) {
                                                 JSONObject jsonObject = plot_details.getJSONObject(i);
-                                                data_pts[i] = jsonObject.getDouble("open_price");
+                                                data_pts[i] = jsonObject.getInt("open_price");
                                             }
 
                                             high = stock_details.getDouble("High");
@@ -127,6 +127,7 @@ public class Company extends AppCompatActivity {
                                             intent.putExtra("open", open);
                                             intent.putExtra("close", close);
                                             intent.putExtra("volume", volume);
+                                            intent.putExtra("Name", companyTextView.getText());
 
                                             startActivity(intent);
 
